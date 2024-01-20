@@ -1,0 +1,3 @@
+[submodule "spring-petclinic-data-jdbc"]
+	path = spring-petclinic-data-jdbc
+	url = https://github.com/spring-petclinic/spring-petclinic-data-jdbc

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot
+  template:
+    metadata:
+      labels:
+        app: springboot
+    spec:
+      containers:
+      - name: springboot-pod
+        image: tntjd5596/spring-petclinic-data-jdbc:k8s4
+        #command: ["/bin/sh", "-c", "echo Hello, Kubernetes! && sleep 3600"]
+        ports:
+        - containerPort: 8080

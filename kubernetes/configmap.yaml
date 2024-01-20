@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-configmap
+  namespace: default
+data:
+  my.cnf: |
+    # insert config
+  mysql-database-name: petclinic
