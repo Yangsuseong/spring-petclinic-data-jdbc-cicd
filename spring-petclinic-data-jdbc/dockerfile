@@ -1,0 +1,6 @@
+FROM openjdk:17-jdk-alpine
+WORKDIR /app
+COPY ./ ./
+COPY ./application.properties /app/src/main/resources/application.properties
+RUN ["./gradlew","build","-x","processTestAot"]
+CMD java -jar build/libs/*.jar
