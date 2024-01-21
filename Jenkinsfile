@@ -73,7 +73,8 @@ podTemplate(label: 'docker-build',
                         #!/usr/bin/env bash
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                        git config --global user.email "<tntjd5596@gmail.com>"
+                        git config --global user.name "Yangsuseong"
+                        git config --global user.email "tntjd5596@gmail.com"
                         git checkout main
                         cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${env.BUILD_NUMBER}
                         git add app/overlays/dev/kustomization.yaml
