@@ -75,8 +75,6 @@ podTemplate(label: 'docker-build',
                 ])
 
                 script {
-                    def gitCredentials = credentials('githubcred')
-                    withCredentials([usernamePassword(credentialsId: 'githubcred', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         sshagent(['jenkins-ssh-private']) {
                             sh("""
                                 #!/usr/bin/env bash
@@ -90,7 +88,6 @@ podTemplate(label: 'docker-build',
                                 echo "Git Push Start"
                                 git push
                             """)
-                        }
                     }
                 }
             }
