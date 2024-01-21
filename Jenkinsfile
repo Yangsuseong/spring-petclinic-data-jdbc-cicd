@@ -64,26 +64,29 @@ podTemplate(label: 'docker-build',
         }
 
         stage('Deploy'){
-            container('argo'){
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/main' ]],
-                    extensions: scm.extensions,
-                    userRemoteConfigs: [[
-                        url: 'git@github.com:Yangsuseong/spring-petclinic-data-jdbc-cicd.git',
-                        credentialsId: 'githubcred',
-                    ]]
-                ])
-                sshagent(credentials: ['jenkins-ssh-private']){
-                    sh("""
-                        #!/bin/bash
-                        set +x
-                        export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                        git config --global user.email "Yangsuseong"
-                        git checkout main
-                        cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
-                        git commit -a -m "CI/CD Build"
-                        git push
-                    """)
+            script {
+                env.GIT_SSH_COMMAND = 'ssh -o StrictHostKeyChecking=no'
+                container('argo'){
+                    checkout([$class: 'GitSCM',
+                        branches: [[name: '*/main' ]],
+                        extensions: scm.extensions,
+                        userRemoteConfigs: [[
+                            url: 'git@github.com:Yangsuseong/spring-petclinic-data-jdbc-cicd.git',
+                            credentialsId: 'githubcred',
+                        ]]
+                    ])
+                    sshagent(credentials: ['jenkins-ssh-private']){
+                        sh("""
+                            #!/bin/bash
+                            set +x
+                            export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
+                            git config --global user.email "tntjd5596@gmail.com""
+                            git checkout main
+                            cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
+                            git commit -a -m "CI/CD Build"
+                            git push
+                        """)
+                    }
                 }
             }
         }
