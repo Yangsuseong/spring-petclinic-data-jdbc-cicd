@@ -79,7 +79,8 @@ podTemplate(label: 'docker-build',
                         sh("""
                             #!/bin/bash
                             set +x
-                            git config --global user.name "Yangsuseong"
+                            git config user.name "Yangsuseong"
+                            git config user.email "tntjd5596@gmail.com"
                             git checkout main
                             cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
                             git commit -a -m "CI/CD Build"
