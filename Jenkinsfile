@@ -19,7 +19,7 @@ podTemplate(label: 'docker-build',
     ]
 ) {
     node('docker-build') {
-        def dockerHubCred = "dckr_pat_QCKdNy2MK1U42P52KIFgoaKoFCg"
+        def dockerHubCred = "dckr_pat_YHktmwuG70ibC-V4Bp1CVRDubzI"
         def appImage
 
         stage('Checkout'){
@@ -51,7 +51,7 @@ podTemplate(label: 'docker-build',
             container('docker'){
                 script {
                     docker.withRegistry('https://registry.hub.docker.com',
-                    'dckr_pat_QCKdNy2MK1U42P52KIFgoaKoFCg'){
+                    'dckr_pat_YHktmwuG70ibC-V4Bp1CVRDubzI'){
                         appImage.push("${env.BUILD_NUMBER}")
                         appImage.push("latest")
                     }
