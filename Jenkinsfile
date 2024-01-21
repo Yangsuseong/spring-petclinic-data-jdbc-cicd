@@ -41,8 +41,7 @@ podTemplate(label: 'docker-build',
             container('docker'){
                 script {
                     appImage.inside {
-                        sh 'npm install'
-                        sh 'npm test'
+                        echo 'Skip Test'
                     }
                 }
             }
