@@ -70,7 +70,7 @@ podTemplate(label: 'docker-build',
                     branches: [[name: '*/main' ]],
                     extensions: scm.extensions,
                     userRemoteConfigs: [[
-                        url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd'',
+                        url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd',
                         credentialsId: 'Github',
                     ]]
                 ])
