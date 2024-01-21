@@ -75,7 +75,7 @@ podTemplate(label: 'docker-build',
                     ]]
                 ])
                 sshagent(credentials: ['Github']) {
-                  stage('Git Operations') {
+                  stage('Deploy') {
                       steps {
                           script {
                               checkout([$class: 'GitSCM', 
