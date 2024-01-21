@@ -73,9 +73,11 @@ podTemplate(label: 'docker-build',
                         credentialsId: 'Yangsuseong',
                     ]]
                 ])
-                
+
                 script {
-                    sshagent(['jenkins-ssh-private','Yangsuseong']) {
+                    withCredentials([usernamePassword(credentialsId: 'Yangsuseong',usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        git config --global user.name "${GIT_USERNAME}"
+                        git config --global user.password "${GIT_PASSWORD}"
                         sh("""
                             #!/usr/bin/env bash
                             set +x
@@ -88,6 +90,7 @@ podTemplate(label: 'docker-build',
                             echo "Git Push Start"
                             git push
                         """)
+                        
                     }
                 }
             }
