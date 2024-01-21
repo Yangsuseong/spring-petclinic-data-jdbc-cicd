@@ -12,6 +12,12 @@ podTemplate(label: 'docker-build',
             command: 'cat',
             ttyEnabled: true
         ),
+        containerTemplate(
+            name: 'argo',
+            image: 'argoproj/argo-cd-ci-builder:latest',
+            command: 'cat',
+            ttyEnabled: true
+        ),
     ],
 
     volumes: [
