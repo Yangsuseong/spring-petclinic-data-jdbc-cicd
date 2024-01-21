@@ -31,7 +31,7 @@ podTemplate(label: 'docker-build',
         stage('Build'){
             container('docker'){
                 script {
-                    appImage = docker.build("tntjd5596/spring-petclinic-data-jdbc-cicd:")
+                    appImage = docker.build("tntjd5596/spring-petclinic-data-jdbc-cicd")
                 }
             }
         }
