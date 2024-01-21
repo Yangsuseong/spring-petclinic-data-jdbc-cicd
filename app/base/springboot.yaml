@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: springboot-pod
-        image: tntjd5596/spring-petclinic-data-jdbc:k8s4
+        image: tntjd5596/spring-petclinic-data-jdbc-cicd:k8s4
         #command: ["/bin/sh", "-c", "echo Hello, Kubernetes! && sleep 3600"]
         ports:
         - containerPort: 8080
