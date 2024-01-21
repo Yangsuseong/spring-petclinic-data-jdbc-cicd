@@ -75,6 +75,7 @@ podTemplate(label: 'docker-build',
                     ]]
                 ])
                 sshagent(credentials: ["githubcred"]){
+                    authenticationToken('githubcred')
                     sh("""
                         #!/usr/bin/env bash
                         set +x
@@ -87,11 +88,8 @@ podTemplate(label: 'docker-build',
                         cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
                         git commit -a -m "CI/CD Build"
                         echo "Git Push Start"
+                        git push
                     """)
-                        withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                            git push 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd' 
-                            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/username/repository.git"
-                        }
 
                 }
             }
