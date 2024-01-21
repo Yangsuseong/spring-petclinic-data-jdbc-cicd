@@ -57,7 +57,7 @@ podTemplate(label: 'docker-build',
                 }
             }
         }
-        
+
         stage('Deploy'){
             container('argo'){
                 checkout([$class: 'GitSCM',
@@ -73,10 +73,19 @@ podTemplate(label: 'docker-build',
                         #!/usr/bin/env bash
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                        git config --global user.name "Yangsuseong"
                         git config --global user.email "tntjd5596@gmail.com"
                         git checkout main
                         cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${env.BUILD_NUMBER}
+
+                        # Debugging: Print current state
+                        echo "Current directory: \$(pwd)"
+                        echo "Git configurations:"
+                        git config --list
+
+                        # Debugging: Print changes
+                        git status
+                        git diff
+
                         git add app/overlays/dev/kustomization.yaml
                         git commit -a -m "CI/CD Build"
                         git push
@@ -84,7 +93,6 @@ podTemplate(label: 'docker-build',
                 }
             }
         }
-    }   
-
+    }
 }
 
