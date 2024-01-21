@@ -55,7 +55,7 @@ podTemplate(label: 'docker-build',
         stage('Push'){
             container('docker'){
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com','Dockerhub'){
+                    docker.withRegistry('https://registry.hub.docker.com','dockercred'){
                         appImage.push("${env.BUILD_NUMBER}")
                         appImage.push("latest")
                     }
