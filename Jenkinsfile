@@ -82,12 +82,17 @@ podTemplate(label: 'docker-build',
                         git config --global user.name "Yangsuseong"
                         git config --global user.email "tntjd5596@gmail.com"
                         git config --global credential.username "Yangsuseong"
+
                         git checkout main
                         cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
                         git commit -a -m "CI/CD Build"
                         echo "Git Push Start"
-                        git push
                     """)
+                        withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: 'GIT_PASSWORD', usernameVariable: GIT_USERNAME')]) {
+                            git push 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd' 
+                            sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/username/repository.git"
+                        }
+
                 }
             }
         }
