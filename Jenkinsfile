@@ -68,10 +68,10 @@ podTemplate(label: 'docker-build',
                 env.GIT_SSH_COMMAND = 'ssh -o StrictHostKeyChecking=no'
                 container('argo'){
                     checkout([$class: 'GitSCM',
-                        branches: [[name: 'main' ]],
+                        branches: [[name: '*/main' ]],
                         extensions: scm.extensions,
                         userRemoteConfigs: [[
-                            url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd.git',
+                            url: 'git@github.com:Yangsuseong/spring-petclinic-data-jdbc-cicd.git',
                             credentialsId: 'githubcred',
                         ]]
                     ])
