@@ -75,7 +75,7 @@ podTemplate(label: 'docker-build',
                 ])
 
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'Yangsuseong',usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'githubcred',usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         git config --global user.name "${GIT_USERNAME}"
                         git config --global user.password "${GIT_PASSWORD}"
                         sh("""
