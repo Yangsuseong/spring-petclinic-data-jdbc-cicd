@@ -50,7 +50,7 @@ podTemplate(label: 'docker-build',
         stage('Push'){
             container('docker'){
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com',
+                    docker.withRegistry('https://hub.docker.com/repository/docker/tntjd5596/spring-petclinic-data-jdbc',
                     'dckr_pat_YHktmwuG70ibC-V4Bp1CVRDubzI'){
                         appImage.push("${env.BUILD_NUMBER}")
                         appImage.push("latest")
