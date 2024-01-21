@@ -75,17 +75,20 @@ podTemplate(label: 'docker-build',
                             credentialsId: 'githubcred',
                         ]]
                     ])
-                    sshagent(credentials: ['Yangsuseong']){
-                        sh("""
-                            #!/bin/bash
-                            set +x
-                            git config user.name "Yangsuseong"
-                            git config user.email "tntjd5596@gmail.com"
-                            git checkout main
-                            cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
-                            git commit -a -m "CI/CD Build"
-                            git push
-                        """)
+                    withCredentials([usernamePassword(credentialsId: 'githubcred', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sshagent(credentials: ['Yangsuseong']){
+                            sh("""
+                                #!/bin/bash
+                                set +x
+                                git config user.name "Yangsuseong"
+                                git config user.email "tntjd5596@gmail.com"
+                                git remote add origin https://{USERNAME}:{PASSWORD}@github.com/{USERNAME}/project.git
+                                git checkout main
+                                cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
+                                git commit -a -m "CI/CD Build"
+                                git push
+                            """)
+                        }
                     }
                 }
             }
