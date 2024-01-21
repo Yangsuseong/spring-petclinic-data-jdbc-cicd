@@ -82,8 +82,11 @@ podTemplate(label: 'docker-build',
                                 set +x
                                 git config user.name "Yangsuseong"
                                 git config user.email "tntjd5596@gmail.com"
-                                git remote remove origin
-                                git remote add origin https://{USERNAME}:{PASSWORD}@github.com/{USERNAME}/spring-petclinic-data-jdbc-cicd.git
+                                echo "########"
+                                echo $USERNAME
+                                echo $PASSWORD
+                                echo "########"
+                                git remote add origin https://${USERNAME}:${PASSWORD}@github.com/${USERNAME}/spring-petclinic-data-jdbc-cicd.git
                                 git checkout main
                                 cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
                                 git commit -a -m "CI/CD Build"
