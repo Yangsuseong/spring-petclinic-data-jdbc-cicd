@@ -88,10 +88,8 @@ podTemplate(label: 'docker-build',
                         cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
                         git commit -a -m "CI/CD Build"
                         echo "Git Push Start"
-                    """)
-                    withCredentials([gitUsernamePassword(credentialsId: 'my-credentials-id')]) {
                         git push
-                    }
+                    """)
 
                 }
             }
