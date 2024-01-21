@@ -79,9 +79,12 @@ podTemplate(label: 'docker-build',
                       steps {
                           script {
                               checkout([$class: 'GitSCM', 
-                                        branches: [[name: '*/main']],
-                                        userRemoteConfigs: [[url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd',
-                                                            credentialsId: 'Github']])
+                                  branches: [[name: '*/main']],
+                                  userRemoteConfigs: [[
+                                      url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd',
+                                      credentialsId: 'Github',
+                                  ]]
+                              ])
                               sh """
                                   #!/usr/bin/env bash
                                   set +x
