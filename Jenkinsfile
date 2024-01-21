@@ -70,27 +70,25 @@ podTemplate(label: 'docker-build',
                     extensions: scm.extensions,
                     userRemoteConfigs: [[
                         url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd',
-                        credentialsId: 'githubcred',
+                        credentialsId: 'Yangsuseong',
                     ]]
                 ])
 
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'githubcred',usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                        git config --global user.name "${GIT_USERNAME}"
-                        git config --global user.password "${GIT_PASSWORD}"
+                    sshagent(['jenkins-ssh-private','Yangsuseong']) {
                         sh("""
                             #!/usr/bin/env bash
                             set +x
                             export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
                             git config --global user.name "Yangsuseong"
                             git config --global user.email "tntjd5596@gmail.com"
+                            git config --global user.password "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"
                             git checkout main
                             cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
                             git commit -a -m "CI/CD Build"
                             echo "Git Push Start"
                             git push
                         """)
-                        
                     }
                 }
             }
