@@ -92,7 +92,6 @@ podTemplate(label: 'docker-build',
                         git status
                         git diff
 
-                        git add app/overlays/dev/kustomization.yaml
                         git commit -a -m "CI/CD Build"
                         git push
                     """)
