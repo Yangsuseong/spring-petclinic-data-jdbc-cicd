@@ -76,7 +76,7 @@ podTemplate(label: 'docker-build',
                 ])
                 
                 script {
-                    sshagent(['Yangsuseong']) {
+                    sshagent(['jenkins-ssh-private']) {
                         sh("""
                             #!/usr/bin/env bash
                             set +x
