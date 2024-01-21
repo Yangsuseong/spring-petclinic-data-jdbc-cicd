@@ -31,7 +31,7 @@ podTemplate(label: 'docker-build',
         stage('Build'){
             container('docker'){
                 script {
-                    appImage = docker.build("tntjd5596/spring-petclinic-data-jdbc")
+                    appImage = docker.build("tntjd5596/spring-petclinic-data-jdbc-cicd:")
                 }
             }
         }
@@ -75,7 +75,7 @@ podTemplate(label: 'docker-build',
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
                         git config --global user.email "<tntjd5596@gmail.com>"
                         git checkout main
-                        cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
+                        cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc-cicd:${BUILD_NUMBER}
                         git commit -a -m "CI/CD Build"
                         git push
                     """)
