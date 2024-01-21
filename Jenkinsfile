@@ -71,10 +71,10 @@ podTemplate(label: 'docker-build',
                     extensions: scm.extensions,
                     userRemoteConfigs: [[
                         url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd',
-                        credentialsId: 'Github',
+                        credentialsId: 'githubcred',
                     ]]
                 ])
-                sshagent(credentials: ['Github']){
+                sshagent(credentials: ["githubcred"]){
                     sh("""
                         #!/usr/bin/env bash
                         set +x
