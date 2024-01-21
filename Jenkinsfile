@@ -75,12 +75,12 @@ podTemplate(label: 'docker-build',
                             credentialsId: 'githubcred',
                         ]]
                     ])
-                    sshagent(credentials: ['jenkins-ssh-private']){
+                    sshagent(credentials: ['Yangsuseong']){
                         sh("""
                             #!/bin/bash
                             set +x
                             export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-                            git config --global user.email "tntjd5596@gmail.com""
+                            git config --global user.email "tntjd5596@gmail.com"
                             git checkout main
                             cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
                             git commit -a -m "CI/CD Build"
