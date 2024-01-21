@@ -88,7 +88,7 @@ podTemplate(label: 'docker-build',
                                 echo "########"
                                 git remote set-url origin "https://${USERNAME}:${PASSWORD}@github.com/${USERNAME}/spring-petclinic-data-jdbc-cicd.git"
                                 git checkout main
-                                cd app/base && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
+                                cd app/base && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc-cicd:${BUILD_NUMBER}
                                 git commit -a -m "CI/CD Build"
                                 git push
                             """)
