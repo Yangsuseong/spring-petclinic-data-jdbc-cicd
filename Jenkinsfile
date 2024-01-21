@@ -105,11 +105,11 @@ podTemplate(label: 'docker-build',
                                   git commit -a -m \"CI/CD Build\"
                                   git push
                               """
+                            }
                         }    
                     }
                 }
             }
         }
     }
-}                               
-
+} 
