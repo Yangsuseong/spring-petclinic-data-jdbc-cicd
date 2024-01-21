@@ -65,7 +65,7 @@ podTemplate(label: 'docker-build',
 
         stage('Deploy'){
             script {
-                env.GIT_SSH_COMMAND = 'ssh -o StrictHostKeyChecking=no'
+                env.GIT_SSH_COMMAND = 'ssh -o StrictHostKeyChecking=yes'
                 container('argo'){
                     checkout([$class: 'GitSCM',
                         branches: [[name: '*/main' ]],
@@ -79,7 +79,6 @@ podTemplate(label: 'docker-build',
                         sh("""
                             #!/bin/bash
                             set +x
-                            export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
                             git config --global user.name "Yangsuseong"
                             git checkout main
                             cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${BUILD_NUMBER}
