@@ -1,0 +1,9 @@
+resources:
+- configmap.yaml
+- secret.yaml
+- mysql.yaml
+- service.yaml
+- springboot.yaml
+- ingress.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
