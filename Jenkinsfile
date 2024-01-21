@@ -88,7 +88,7 @@ podTemplate(label: 'docker-build',
                         git commit -a -m "CI/CD Build"
                         echo "Git Push Start"
                     """)
-                        withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: 'GIT_PASSWORD', usernameVariable: GIT_USERNAME')]) {
+                        withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
                             git push 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd' 
                             sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/username/repository.git"
                         }
