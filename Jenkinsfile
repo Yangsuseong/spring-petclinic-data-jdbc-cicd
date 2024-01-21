@@ -64,49 +64,37 @@ podTemplate(label: 'docker-build',
             }
         }
 
-        stage('Deploy'){
-            container('argo'){
-                checkout([$class: 'GitSCM',
-                    branches: [[name: '*/main' ]],
-                    extensions: scm.extensions,
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd',
-                        credentialsId: 'Github',
-                    ]]
-                ])
-                sshagent(credentials: ['Github']) {
-                  stage('Deploy') {
-                      steps {
-                          script {
-                              checkout([$class: 'GitSCM', 
-                                  branches: [[name: '*/main']],
-                                  userRemoteConfigs: [[
-                                      url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd',
-                                      credentialsId: 'Github',
-                                  ]]
-                              ])
-                              sh """
-                                  #!/usr/bin/env bash
-                                  set +x
-                                  export GIT_SSH_COMMAND=\"ssh -oStrictHostKeyChecking=no\"
-                                  git config --global user.email \"tntjd5596@gmail.com\"
-                                  git checkout main
-                                  cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${env.BUILD_NUMBER}
+        sshagent(credentials: ['Github']) {
+          stage('Deploy') {
+              steps {
+                  script {
+                      checkout([$class: 'GitSCM',
+                          branches: [[name: '*/main']],
+                          userRemoteConfigs: [[
+                              url: 'https://github.com/Yangsuseong/spring-petclinic-data-jdbc-cicd',
+                              credentialsId: 'Github',
+                          ]]
+                      ])
+                      sh """
+                          #!/usr/bin/env bash
+                          set +x
+                          export GIT_SSH_COMMAND=\"ssh -oStrictHostKeyChecking=no\"
+                          git config --global user.email \"tntjd5596@gmail.com\"
+                          git checkout main
+                          cd app/overlays/dev && kustomize edit set image tntjd5596/spring-petclinic-data-jdbc:${env.BUILD_NUMBER}
 
-                                  # Debugging: Print current state
-                                  echo \"Current directory: \$(pwd)\"
-                                  echo \"Git configurations:\"
-                                  git config --list
+                          # Debugging: Print current state
+                          echo \"Current directory: \$(pwd)\"
+                          echo \"Git configurations:\"
+                          git config --list
 
-                                  # Debugging: Print changes
-                                  git status
-                                  git diff
+                          # Debugging: Print changes
+                          git status
+                          git diff
 
-                                  git commit -a -m \"CI/CD Build\"
-                                  git push
-                              """
-                            }
-                        }    
+                          git commit -a -m \"CI/CD Build\"
+                          git push
+                      """
                     }
                 }
             }
