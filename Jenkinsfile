@@ -75,8 +75,8 @@ podTemplate(label: 'docker-build',
                 ])
 
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: 'GIT_PASSWORD')]) {
-                        sshagent(['jenkins-ssh-private','githubcred']) {
+                    withCredentials([usernamePassword(credentialsId: 'githubcred')]) {
+                        sshagent(['jenkins-ssh-private']) {
                             sh("""
                                 #!/usr/bin/env bash
                                 set +x
