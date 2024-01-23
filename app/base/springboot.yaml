@@ -13,9 +13,22 @@ spec:
       labels:
         app: springboot
     spec:
+      initContainers:
+      - name: copy-files
+        image: tntjd5596/spring-petclinic-data-jdbc:k8s10
+        command: ['sh', '-c', 'cp /app/build/libs/spring-petclinic-*.jar /logs/application.jar']
+        volumeMounts:
+        - name: log-volume
+          mountPath: /logs/
       containers:
       - name: springboot-pod
-        image: tntjd5596/spring-petclinic-data-jdbc-cicd:k8s4
-        #command: ["/bin/sh", "-c", "echo Hello, Kubernetes! && sleep 3600"]
+        image: tntjd5596/spring-petclinic-data-jdbc:k8s10
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: log-volume
+          mountPath: /app/build/libs/
+      volumes:
+      - name: log-volume
+        hostPath:
+          path: /logs/
